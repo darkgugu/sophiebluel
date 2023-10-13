@@ -1,0 +1,30 @@
+$color-bg : #FFFEF8;
+$color-main: #1D6154;
+
+.button-container{
+    text-align: center;
+    padding: 30px;
+
+    .button-categories{
+        background-color: $color-bg;
+        border-radius: 50px;
+        padding: 8px 10px;
+        margin: 5px;
+        min-width: 80px;
+        border: 1px solid $color-main;
+        color: $color-main;
+        font-weight: 600;
+        font-size: 1.2em;
+        font-family: 'Syne';
+
+        &-selected{
+            background-color: $color-main;
+            color: $color-bg;
+        }
+    }
+}
+
+body{
+    background-color: $color-bg;
+}
+
