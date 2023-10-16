@@ -26,5 +26,22 @@ $color-main: #1D6154;
 
 body{
     background-color: $color-bg;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+li a{
+    text-decoration: none;
+    color: black;
+
+    &:hover{    
+    	color: #B1663C;
+    }
+}
+
+.oubli-mdp{
+    text-align: center;
+    color: black;
+}

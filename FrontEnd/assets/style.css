@@ -21,4 +21,21 @@
 
 body {
   background-color: #FFFEF8;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+li a {
+  text-decoration: none;
+  color: black;
+}
+li a:hover {
+  color: #B1663C;
+}
+
+.oubli-mdp {
+  text-align: center;
+  color: black;
 }
