@@ -39,3 +39,40 @@ li a:hover {
   text-align: center;
   color: black;
 }
+
+.edition {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  background-color: black;
+  color: #FFFEF8;
+  height: 50px;
+  width: 100%;
+}
+
+.header-edition {
+  margin-top: 90px;
+}
+
+.titre-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.titre-container > * {
+  margin: 0 !important;
+}
+
+.modifier {
+  padding-left: 30px;
+}
+.modifier-link {
+  text-decoration: none;
+  color: black;
+}
+
+.notDisplayed {
+  display: none;
+}

@@ -11,15 +11,17 @@
 	<link rel="stylesheet" href="./assets/style-nosass.css">
 	<link rel="stylesheet" href="./assets/style.css">
 	<script type="module" src="scripts\script.js"></script>
+	<script src="https://kit.fontawesome.com/619f649967.js" crossorigin="anonymous"></script>
 </head>
 <body>
+<div class="edition notDisplayed"><i class="fa-regular fa-pen-to-square"></i>Mode édition</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li><a href="index.html">projets</a></li>
 			<li><a href="">contact</a></li>
-			<li><a href="login.html">login</a></li>
+			<li><a id="login" href="login.html">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -37,7 +39,13 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="titre-container">
+			<h2>Mes Projets</h2>
+			<div class="modifier notDisplayed">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<a class="modifier-link" href="">modifier</a>
+			</div>
+		</div>
 		<div class="button-container">
 <!-- 			<button class="button-categories button-categories-selected">Tout</button>
  -->		</div>

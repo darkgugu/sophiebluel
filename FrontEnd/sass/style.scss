@@ -45,3 +45,43 @@ li a{
     text-align: center;
     color: black;
 }
+
+.edition{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    background-color: black;
+    color: $color-bg;
+    height: 50px;
+    width: 100%;
+    //margin-bottom: 35px;
+}
+
+.header-edition{
+    margin-top: 90px;
+}
+
+.titre-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & > * {
+        margin:  0 !important;
+    }
+}
+
+.modifier{
+
+    padding-left: 30px;
+    &-link{
+        text-decoration: none;
+        color: black;
+    }
+}
+
+.notDisplayed{
+    display: none;
+}
