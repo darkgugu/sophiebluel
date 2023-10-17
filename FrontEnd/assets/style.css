@@ -76,3 +76,14 @@ li a:hover {
 .notDisplayed {
   display: none;
 }
+
+.wrong-connection {
+  border: solid 2px #cc0000 !important;
+}
+
+#contact p {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #cc0000;
+}

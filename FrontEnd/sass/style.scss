@@ -85,3 +85,14 @@ li a{
 .notDisplayed{
     display: none;
 }
+
+.wrong-connection{
+    border: solid 2px darken($color: red, $amount: 10) !important;
+}
+
+#contact p{
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+    color: darken($color: red, $amount: 10);
+}
