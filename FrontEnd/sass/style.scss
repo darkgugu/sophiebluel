@@ -57,6 +57,10 @@ li a{
     height: 50px;
     width: 100%;
     //margin-bottom: 35px;
+
+    i{
+        padding: 0 10px;
+    }
 }
 
 .header-edition{
@@ -95,4 +99,66 @@ li a{
     margin-top: 20px;
     font-weight: bold;
     color: darken($color: red, $amount: 10);
+}
+
+.modale{
+
+    border: none;
+    border-radius: 15px;
+    height: 70%;
+    width: 30%;
+
+    &-content{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        //background-color: aquamarine;
+    }
+
+    &-photos{
+        width: 75%;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        row-gap: 15px;
+        column-gap: 7px;
+
+        img{
+            width: 100%;
+        }
+
+        figure{
+            position: relative;
+        }
+    }
+
+    &-ligne{
+        height: 1px;
+        width: 75%;
+        margin: 30px;
+        background-color: grey;
+    }
+
+    &-corbeille{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        color: white;
+        background-color: black;
+        width: 20px;
+        height: 20px;
+        border-radius: 3px;
+    }
+
+    h3{
+        padding: 30px;
+        font-size: 1.5em;
+    }
+
+    &::backdrop{
+        background-color: rgba(0,0,0,0.4);
+    }
 }

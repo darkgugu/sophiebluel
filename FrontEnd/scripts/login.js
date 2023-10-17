@@ -52,7 +52,6 @@ logForm.addEventListener('submit', async function (event){
         else{
             errorElement.innerText = 'Utilisateur inconnu'
         }
-
     }
     else{
         errorElement.innerText = 'Erreur'

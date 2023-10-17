@@ -51,6 +51,9 @@ li a:hover {
   height: 50px;
   width: 100%;
 }
+.edition i {
+  padding: 0 10px;
+}
 
 .header-edition {
   margin-top: 90px;
@@ -86,4 +89,57 @@ li a:hover {
   margin-top: 20px;
   font-weight: bold;
   color: #cc0000;
+}
+
+.modale {
+  border: none;
+  border-radius: 15px;
+  height: 70%;
+  width: 30%;
+}
+.modale-content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+.modale-photos {
+  width: 75%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  row-gap: 15px;
+  -moz-column-gap: 7px;
+       column-gap: 7px;
+}
+.modale-photos img {
+  width: 100%;
+}
+.modale-photos figure {
+  position: relative;
+}
+.modale-ligne {
+  height: 1px;
+  width: 75%;
+  margin: 30px;
+  background-color: grey;
+}
+.modale-corbeille {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  color: white;
+  background-color: black;
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+}
+.modale h3 {
+  padding: 30px;
+  font-size: 1.5em;
+}
+.modale::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
 }

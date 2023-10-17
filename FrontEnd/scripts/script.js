@@ -3,27 +3,41 @@ const projets = await fetch('http://localhost:5678/api/works').then(projets => p
 
 const galleryElement = document.querySelector('.gallery')
 
-function afficherProjets(array) {
+function afficherProjets(array, element) {
 
-    galleryElement.innerText = ''
+    element.innerText = ''
 
     for (let i = 0; i < array.length; i++) {
     
         const figureElement = document.createElement('figure')
         const imgElement = document.createElement('img')
-        const captionElement = document.createElement('figcaption')
     
         imgElement.setAttribute('src', array[i].imageUrl)
         imgElement.setAttribute('alt', array[i].title)
-        captionElement.innerText = array[i].title
-    
+
         figureElement.appendChild(imgElement)
-        figureElement.appendChild(captionElement)
-        galleryElement.appendChild(figureElement)
+        
+        if (element === galleryElement) {
+            const captionElement = document.createElement('figcaption')
+            captionElement.innerText = array[i].title
+            figureElement.appendChild(captionElement)
+        }
+        else{
+            const trashContainer = document.createElement('div')
+            const trash = document.createElement('i')
+
+            trashContainer.classList.add('modale-corbeille')
+            trash.classList.add('fa-solid', 'fa-trash-can', 'fa-xs')
+
+            trashContainer.appendChild(trash)
+            figureElement.appendChild(trashContainer)
+        }
+
+        element.appendChild(figureElement)
     }
 }
 
-afficherProjets(projets)
+afficherProjets(projets, galleryElement)
 
 
 const categories = await fetch('http://localhost:5678/api/categories').then(categories => categories.json())
@@ -69,11 +83,9 @@ for (let i = 0; i < buttonElement.length; i++) {
         }
 
         console.log('catMap :', catMap);
-        afficherProjets(catMap)
+        afficherProjets(catMap, galleryElement)
     })  
 }
-
-//document.cookie = "admin=false; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
 if (document.cookie.includes('admin=true')) {
     
@@ -99,3 +111,23 @@ if (document.cookie.includes('admin=true')) {
     const categories = document.querySelector('.button-container')
     categories.innerText = ''
 }
+
+// Modale
+
+const modal = document.querySelector('.modale')
+const modalOpen = document.querySelector('.modifier-link')
+const modalClose = document.querySelector('.modale-close')
+
+modalOpen.addEventListener('click', function (event){
+    event.preventDefault()
+    modal.showModal()
+})
+
+modalClose.addEventListener('click', function (){
+
+    modal.close()
+})
+
+const photoContainer = document.querySelector('.modale-photos')
+
+afficherProjets(projets, photoContainer)
