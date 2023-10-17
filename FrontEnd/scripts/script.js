@@ -79,6 +79,13 @@ if (document.cookie.includes('admin=true')) {
     
     const logout = document.getElementById('login')
     logout.innerText = 'logout'
+    logout.setAttribute('href', '')
+    logout.addEventListener('click', function (){
+        document.cookie = "admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        console.log('Cookies supprimés, deconnexion')
+    })
 
     //Ajout d'une margin bottom au header
     const header = document.querySelector('header')
@@ -90,5 +97,5 @@ if (document.cookie.includes('admin=true')) {
     }
 
     const categories = document.querySelector('.button-container')
-    categories.innerText = ''    
+    categories.innerText = ''
 }
