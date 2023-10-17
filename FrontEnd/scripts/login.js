@@ -28,6 +28,8 @@ logForm.addEventListener('submit', async function (event){
     document.cookie = `token=${reponseJson.token}`
     document.cookie = 'admin=true'
 
+    const errorElement = document.getElementById('error-container')
+
     if(status === 200){
         window.location.replace('index.html')
     }
@@ -43,7 +45,6 @@ logForm.addEventListener('submit', async function (event){
             password.classList.remove('wrong-connection')
         })
 
-        const errorElement = document.getElementById('error-container')
 
         if (status === 401) {
             errorElement.innerText = 'Mauvaise adresse mail ou mot de passe'
@@ -54,6 +55,6 @@ logForm.addEventListener('submit', async function (event){
 
     }
     else{
-
+        errorElement.innerText = 'Erreur'
     }
 })
