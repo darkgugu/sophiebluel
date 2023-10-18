@@ -27,6 +27,7 @@ function afficherProjets(array, element) {
             const trash = document.createElement('i')
 
             trashContainer.classList.add('modale-corbeille')
+            trashContainer.classList.add(`trash-${i}`)
             trash.classList.add('fa-solid', 'fa-trash-can', 'fa-xs')
 
             trashContainer.appendChild(trash)
@@ -87,6 +88,8 @@ for (let i = 0; i < buttonElement.length; i++) {
     })  
 }
 
+const token = document.cookie.split('; ').find((x) => x.startsWith('token='))?.split('=')[1]
+
 if (document.cookie.includes('admin=true')) {
     
     const logout = document.getElementById('login')
@@ -131,3 +134,30 @@ modalClose.addEventListener('click', function (){
 const photoContainer = document.querySelector('.modale-photos')
 
 afficherProjets(projets, photoContainer)
+
+trashListener()
+
+function trashListener(){
+
+    for (let i = 0; i < projets.length; i++) {
+        const trashContainer = document.querySelector(`.trash-${i}`)
+        //console.log('trashContainer :', trashContainer);
+        trashContainer.addEventListener('click', async function (){
+            console.log(trashContainer.classList[1])
+    
+            const del = await fetch(`http://localhost:5678/api/works/${projets[i].id}`, {
+                method: 'DELETE',
+                headers: {
+                    'accept': '*/*',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            projets.splice(i, 1)
+            console.log(del)
+
+            afficherProjets(projets, galleryElement)
+            afficherProjets(projets, photoContainer)
+            trashListener()
+        })
+    }
+}

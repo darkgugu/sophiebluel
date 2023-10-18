@@ -100,6 +100,7 @@ li a:hover {
 .modale-content {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   flex-direction: column;
   height: 100%;
 }
@@ -120,7 +121,7 @@ li a:hover {
 .modale-ligne {
   height: 1px;
   width: 75%;
-  margin: 30px;
+  margin-top: 30px;
   background-color: grey;
 }
 .modale-corbeille {
@@ -142,4 +143,11 @@ li a:hover {
 }
 .modale::backdrop {
   background-color: rgba(0, 0, 0, 0.4);
+}
+
+.real-button {
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  width: 250px;
 }
