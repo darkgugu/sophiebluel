@@ -156,4 +156,5 @@ li a:hover {
   padding: 10px 20px;
   font-size: 1.2em;
   width: 250px;
+  cursor: pointer;
 }
