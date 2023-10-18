@@ -159,6 +159,13 @@ li a{
         font-size: 1.5em;
     }
 
+    &-close{
+        position: absolute;
+        right: 20px;
+        top: 25px;
+        cursor: pointer;
+    }
+
     &::backdrop{
         background-color: rgba(0,0,0,0.4);
     }
