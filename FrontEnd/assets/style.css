@@ -88,6 +88,9 @@ li a:hover {
   text-align: center;
   margin-top: 20px;
   font-weight: bold;
+}
+
+#error-container {
   color: #cc0000;
 }
 
