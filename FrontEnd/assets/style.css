@@ -20,7 +20,7 @@
 }
 
 body {
-  background-color: #FFFEF8;
+  background-color: #ffec79;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -139,6 +139,7 @@ li a:hover {
   width: 20px;
   height: 20px;
   border-radius: 3px;
+  cursor: pointer;
 }
 .modale h3 {
   padding: 30px;
@@ -150,8 +151,32 @@ li a:hover {
   top: 25px;
   cursor: pointer;
 }
+.modale-back {
+  position: absolute;
+  left: 20px;
+  top: 25px;
+  cursor: pointer;
+}
 .modale::backdrop {
   background-color: rgba(0, 0, 0, 0.4);
+}
+.modale-ajout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: 25px;
+  width: 75%;
+  height: 200px;
+  background-color: #E8F1F6;
+}
+.modale-ajout button {
+  background-color: #CBD6DC;
+  color: #306685;
+}
+.modale-ajout i {
+  color: #CBD6DC;
+  transform: scale(5);
 }
 
 .real-button {
@@ -160,4 +185,37 @@ li a:hover {
   font-size: 1.2em;
   width: 250px;
   cursor: pointer;
+}
+
+.form-ajout {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*     & > *{
+          text-align: center;
+      } */
+}
+.form-ajout input {
+  width: 100%;
+  height: 50px;
+  font-size: 1.2em;
+  border: none;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+.form-ajout label {
+  margin: 2em 0 1em 0;
+}
+.form-ajout form {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+.form-ajout .modale-ligne {
+  height: 1px;
+  width: 100%;
+  margin-top: 30px;
+  background-color: grey;
 }
