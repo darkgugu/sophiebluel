@@ -120,6 +120,7 @@ if (document.cookie.includes('admin=true')) {
 const modal = document.querySelector('.modale')
 const modalOpen = document.querySelector('.modifier-link')
 const modalClose = document.querySelector('.modale-close')
+const modaleContent = document.querySelector('.modale-content')
 
 modalOpen.addEventListener('click', function (event){
     event.preventDefault()
@@ -131,33 +132,147 @@ modalClose.addEventListener('click', function (){
     modal.close()
 })
 
-const photoContainer = document.querySelector('.modale-photos')
+genererModaleGalerie()
 
-afficherProjets(projets, photoContainer)
 
-trashListener()
+function genererModaleGalerie() {
 
-function trashListener(){
+    modaleContent.innerText = ''
+    document.querySelector('.modale-back').classList = ''
 
-    for (let i = 0; i < projets.length; i++) {
-        const trashContainer = document.querySelector(`.trash-${i}`)
-        //console.log('trashContainer :', trashContainer);
-        trashContainer.addEventListener('click', async function (){
-            console.log(trashContainer.classList[1])
+    const modaleTitre = document.createElement('h3')
+    const modalePhoto = document.createElement('div')
+    const modaleLigne = document.createElement('div')
+    const modaleButton = document.createElement('button')
+
+    modaleTitre.innerText = 'Galerie photo'
+    modalePhoto.classList.add('modale-photos')
+    modaleLigne.classList.add('modale-ligne')
+    modaleButton.classList.add('button', 'real-button')
+    modaleButton.innerText = 'Ajouter une photo'
+
+    modaleContent.appendChild(modaleTitre)
+    modaleContent.appendChild(modalePhoto)
+    modaleContent.appendChild(modaleLigne)
+    modaleContent.appendChild(modaleButton)
+
+    const photoContainer = document.querySelector('.modale-photos')
+
+    afficherProjets(projets, photoContainer)
     
-            const del = await fetch(`http://localhost:5678/api/works/${projets[i].id}`, {
-                method: 'DELETE',
-                headers: {
-                    'accept': '*/*',
-                    'Authorization': `Bearer ${token}`
-                }
+    trashListener()
+    
+    function trashListener(){
+    
+        for (let i = 0; i < projets.length; i++) {
+            const trashContainer = document.querySelector(`.trash-${i}`)
+            //console.log('trashContainer :', trashContainer);
+            trashContainer.addEventListener('click', async function (){
+                console.log(trashContainer.classList[1])
+        
+                const del = await fetch(`http://localhost:5678/api/works/${projets[i].id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'accept': '*/*',
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                projets.splice(i, 1)
+                console.log(del)
+    
+                afficherProjets(projets, galleryElement)
+                afficherProjets(projets, photoContainer)
+                trashListener()
             })
-            projets.splice(i, 1)
-            console.log(del)
-
-            afficherProjets(projets, galleryElement)
-            afficherProjets(projets, photoContainer)
-            trashListener()
-        })
+        }
     }
+
+    modaleButton.addEventListener('click', function (){
+
+        genererModaleAjout()
+    })
+}
+
+
+
+
+function genererModaleAjout() {
+
+    modaleContent.innerText = ''
+
+    const modaleBack = document.createElement('i')
+    modaleBack.classList.add('fa-solid', 'fa-arrow-left', 'fa-xl', 'modale-back')
+    modal.appendChild(modaleBack)
+
+    const titre = document.createElement('h3')
+    titre.innerText = 'Ajout photo'
+
+    const divAjout = document.createElement('div')
+    divAjout.classList.add('modale-ajout')
+    const i = document.createElement('i')
+    i.classList.add('fa-regular', 'fa-image')
+    const buttonAdd = document.createElement('button')
+    buttonAdd.classList.add('button', 'real-button')
+    buttonAdd.innerText = '+ Ajouter photo'
+    const p = document.createElement('p')
+    p.innerText = 'jpg, png: 4mo max'
+
+    divAjout.appendChild(i)
+    divAjout.appendChild(buttonAdd)
+    divAjout.appendChild(p)
+    
+    
+    const section = document.createElement('section')
+    section.classList.add('form-ajout')
+    const form = document.createElement('form')
+    const labelTitre = generateLabel('Titre')
+    const labelCat = generateLabel('Catégories')
+    const inputTitre = generateTextInput('Titre')
+    const inputCat = generateTextInput('Catégories')
+    const ligne = document.createElement('div')
+    ligne.classList.add('modale-ligne')
+    const buttonSubmit = document.createElement('button')
+    buttonSubmit.classList.add('button', 'real-button', 'modale-submit')
+    buttonSubmit.setAttribute('type', 'submit')
+    buttonSubmit.innerText = 'Valider'
+
+    form.appendChild(labelTitre)
+    form.appendChild(inputTitre)
+    form.appendChild(labelCat)
+    form.appendChild(inputCat)
+    form.appendChild(ligne)
+    form.appendChild(buttonSubmit)
+    section.appendChild(form)
+
+    modaleContent.appendChild(titre)
+    modaleContent.appendChild(divAjout)
+    modaleContent.appendChild(section)
+
+    modaleBack.addEventListener('click', function (){
+    
+        genererModaleGalerie()
+    })
+}
+
+function generateLabel(name){
+
+    const element = document.createElement('label')
+    element.innerText = name
+    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    name = name.toLowerCase()
+    element.setAttribute('for', name)
+    
+    
+    return element
+}
+
+function generateTextInput(name) {
+
+    const element = document.createElement('input')
+    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    name = name.toLowerCase()
+    element.setAttribute('type', 'text')
+    element.setAttribute('name', name)
+    element.setAttribute('id', name)
+    return element
 }
