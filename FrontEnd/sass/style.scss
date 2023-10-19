@@ -25,7 +25,7 @@ $color-main: #1D6154;
 }
 
 body{
-    background-color: darken($color-bg, 25);
+    background-color: $color-bg;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
