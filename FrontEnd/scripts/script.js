@@ -241,7 +241,7 @@ function genererModaleAjout() {
     const labelTitre = createLabel('Titre')
     const labelCat = createLabel('Catégorie')
     const inputTitre = createInput('text', 'Titre')
-    const inputCat = createInput('text', 'Catégorie')
+    const selectCat = createSelect(categories, 'Catégorie')
     const ligne = document.createElement('div')
     ligne.classList.add('modale-ligne')
     const buttonSubmit = document.createElement('button')
@@ -252,7 +252,7 @@ function genererModaleAjout() {
     form.appendChild(labelTitre)
     form.appendChild(inputTitre)
     form.appendChild(labelCat)
-    form.appendChild(inputCat)
+    form.appendChild(selectCat)
     form.appendChild(ligne)
     form.appendChild(buttonSubmit)
     section.appendChild(form)
@@ -269,25 +269,48 @@ function genererModaleAjout() {
 
 function createLabel(name){
 
-    const element = document.createElement('label')
-    element.innerText = name
+    const label = document.createElement('label')
+    label.innerText = name
     name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     name = name.toLowerCase()
-    element.setAttribute('for', name)
+    label.setAttribute('for', name)
     
     
-    return element
+    return label
 }
 
 function createInput(type, name) {
 
-    const element = document.createElement('input')
+    const input = document.createElement('input')
     name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     name = name.toLowerCase()
-    element.setAttribute('type', type)
-    element.setAttribute('name', name)
-    element.setAttribute('id', name)
-    return element
+    input.setAttribute('type', type)
+    input.setAttribute('name', name)
+    input.setAttribute('id', name)
+    return input
+}
+
+function createSelect(array, name) {
+    
+    const select = document.createElement('select')
+    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    name = name.toLowerCase()
+    select.setAttribute('name', name)
+    select.setAttribute('id', name)
+
+    const option = document.createElement('option')
+    option.setAttribute('value', '')
+    select.appendChild(option)
+
+    for (let i = 0; i < array.length; i++) {
+        
+        const option = document.createElement('option')
+        option.setAttribute('value', array[i].name)
+        option.innerText = array[i].name
+        select.appendChild(option)
+    }
+
+    return select
 }
 
 function afficherImage(container, input){

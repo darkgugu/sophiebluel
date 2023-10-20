@@ -208,7 +208,7 @@ li a:hover {
           text-align: center;
       } */
 }
-.form-ajout input {
+.form-ajout input, .form-ajout select {
   width: 100%;
   height: 50px;
   font-size: 1.2em;
