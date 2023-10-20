@@ -183,19 +183,33 @@ li a{
         flex-direction: column;
         align-items: center;
         justify-content: flex-end;
-        padding-bottom: 25px;
+        //padding-bottom: 25px;
         width: 75%;
         height: 200px;
         background-color: #E8F1F6;
         
-        button{
+        label{
             background-color: #CBD6DC;
             color: #306685;
+            width: fit-content;
+            padding: 10px 30px;
         }
 
         i{
             color: #CBD6DC;;
             transform: scale(5);
+        }
+
+        p{
+            padding-bottom: 20px;
+        }
+
+        input[type=file]{
+            display: none;
+        }
+
+        img{
+            height: 100%;
         }
     }
 }

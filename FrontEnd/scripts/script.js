@@ -130,16 +130,21 @@ modalOpen.addEventListener('click', function (event){
 modalClose.addEventListener('click', function (){
 
     modal.close()
+    genererModaleGalerie()
+
 })
 
 genererModaleGalerie()
 
-
 function genererModaleGalerie() {
 
     modaleContent.innerText = ''
-    document.querySelector('.modale-back').classList = ''
-
+    try {
+        document.querySelector('.modale-back').classList = ''    
+    } catch (error) {
+        console.log(error)
+    }
+    
     const modaleTitre = document.createElement('h3')
     const modalePhoto = document.createElement('div')
     const modaleLigne = document.createElement('div')
@@ -211,24 +216,32 @@ function genererModaleAjout() {
     divAjout.classList.add('modale-ajout')
     const i = document.createElement('i')
     i.classList.add('fa-regular', 'fa-image')
-    const buttonAdd = document.createElement('button')
-    buttonAdd.classList.add('button', 'real-button')
-    buttonAdd.innerText = '+ Ajouter photo'
+    const labelAdd = createLabel('ajout')
+    labelAdd.classList.add('button', 'real-button')
+    labelAdd.innerText = '+ Ajouter photo'
+    const inputAdd = createInput('file', 'ajout')
+    inputAdd.setAttribute('accept', 'image/jpeg, image/png, image/jpg')
     const p = document.createElement('p')
     p.innerText = 'jpg, png: 4mo max'
 
     divAjout.appendChild(i)
-    divAjout.appendChild(buttonAdd)
+    divAjout.appendChild(labelAdd)
+    divAjout.appendChild(inputAdd)
     divAjout.appendChild(p)
+
+    inputAdd.addEventListener('change', () => {
+        console.log('added image')
+        divAjout.appendChild(afficherImage(divAjout, inputAdd))
+    })
     
     
     const section = document.createElement('section')
     section.classList.add('form-ajout')
     const form = document.createElement('form')
-    const labelTitre = generateLabel('Titre')
-    const labelCat = generateLabel('Catégories')
-    const inputTitre = generateTextInput('Titre')
-    const inputCat = generateTextInput('Catégories')
+    const labelTitre = createLabel('Titre')
+    const labelCat = createLabel('Catégorie')
+    const inputTitre = createInput('text', 'Titre')
+    const inputCat = createInput('text', 'Catégorie')
     const ligne = document.createElement('div')
     ligne.classList.add('modale-ligne')
     const buttonSubmit = document.createElement('button')
@@ -254,7 +267,7 @@ function genererModaleAjout() {
     })
 }
 
-function generateLabel(name){
+function createLabel(name){
 
     const element = document.createElement('label')
     element.innerText = name
@@ -266,13 +279,29 @@ function generateLabel(name){
     return element
 }
 
-function generateTextInput(name) {
+function createInput(type, name) {
 
     const element = document.createElement('input')
     name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
     name = name.toLowerCase()
-    element.setAttribute('type', 'text')
+    element.setAttribute('type', type)
     element.setAttribute('name', name)
     element.setAttribute('id', name)
     return element
 }
+
+function afficherImage(container, input){
+
+    container.innerText = ''
+    const image = document.createElement('img')
+    image.src = URL.createObjectURL(input.files[0])
+    return image
+}
+
+
+/* const img = document.getElementById('affImg')
+const upload = document.getElementById('test')
+upload.addEventListener('change', () => {
+    console.log('File name :', upload.files[0].name)
+    img.src = URL.createObjectURL(upload.files[0])
+}) */

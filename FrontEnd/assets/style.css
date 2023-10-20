@@ -165,18 +165,29 @@ li a:hover {
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  padding-bottom: 25px;
   width: 75%;
   height: 200px;
   background-color: #E8F1F6;
 }
-.modale-ajout button {
+.modale-ajout label {
   background-color: #CBD6DC;
   color: #306685;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 10px 30px;
 }
 .modale-ajout i {
   color: #CBD6DC;
   transform: scale(5);
+}
+.modale-ajout p {
+  padding-bottom: 20px;
+}
+.modale-ajout input[type=file] {
+  display: none;
+}
+.modale-ajout img {
+  height: 100%;
 }
 
 .real-button {
