@@ -105,8 +105,8 @@ li a{
 
     border: none;
     border-radius: 15px;
-    height: 70%;
-    width: 30%;
+    width: 525px;
+    height: 700px;
 
     &-content{
         display: flex;
@@ -114,7 +114,6 @@ li a{
         justify-content: space-between;
         flex-direction: column;
         height: 100%;
-        //background-color: aquamarine;
     }
 
     &-photos{
@@ -126,6 +125,7 @@ li a{
 
         img{
             width: 100%;
+            max-height: 95px;
         }
 
         figure{
@@ -255,8 +255,11 @@ li a{
         margin-top: 30px;
         background-color: grey;
     }
+}
 
-/*     & > *{
-        text-align: center;
-    } */
+.gallery{
+
+    img{
+        max-height: 490px;
+    }
 }

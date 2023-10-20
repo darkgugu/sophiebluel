@@ -97,8 +97,8 @@ li a:hover {
 .modale {
   border: none;
   border-radius: 15px;
-  height: 70%;
-  width: 30%;
+  width: 525px;
+  height: 700px;
 }
 .modale-content {
   display: flex;
@@ -117,6 +117,7 @@ li a:hover {
 }
 .modale-photos img {
   width: 100%;
+  max-height: 95px;
 }
 .modale-photos figure {
   position: relative;
@@ -204,9 +205,6 @@ li a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /*     & > *{
-          text-align: center;
-      } */
 }
 .form-ajout input, .form-ajout select {
   width: 100%;
@@ -229,4 +227,8 @@ li a:hover {
   width: 100%;
   margin-top: 30px;
   background-color: grey;
+}
+
+.gallery img {
+  max-height: 490px;
 }

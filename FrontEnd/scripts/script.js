@@ -171,20 +171,26 @@ function genererModaleGalerie() {
     
         for (let i = 0; i < projets.length; i++) {
             const trashContainer = document.querySelector(`.trash-${i}`)
-            //console.log('trashContainer :', trashContainer);
             trashContainer.addEventListener('click', async function (){
-                console.log(trashContainer.classList[1])
         
                 const del = await fetch(`http://localhost:5678/api/works/${projets[i].id}`, {
                     method: 'DELETE',
                     headers: {
-                        'accept': '*/*',
                         'Authorization': `Bearer ${token}`
                     }
                 })
+
+
+                console.log('projets :', projets);
+                console.log('i :', i);
+                console.log('projets[i].id :', projets[i].id);
+
+
                 projets.splice(i, 1)
                 console.log(del)
     
+
+
                 afficherProjets(projets, galleryElement)
                 afficherProjets(projets, photoContainer)
                 trashListener()
@@ -230,7 +236,6 @@ function genererModaleAjout() {
     divAjout.appendChild(p)
 
     inputAdd.addEventListener('change', () => {
-        console.log('added image')
         divAjout.appendChild(afficherImage(divAjout, inputAdd))
     })
     
@@ -248,6 +253,25 @@ function genererModaleAjout() {
     buttonSubmit.classList.add('button', 'real-button', 'modale-submit')
     buttonSubmit.setAttribute('type', 'submit')
     buttonSubmit.innerText = 'Valider'
+    buttonSubmit.addEventListener('click', async (event) => {
+
+        event.preventDefault()
+
+        let formData = new FormData()
+        formData.append('title', inputTitre.value)
+        formData.append('category', selectCat.value)
+        formData.append('image', inputAdd.files[0])
+
+        const reponse = await fetch('http://localhost:5678/api/works', {
+            method: 'POST',
+            headers: {
+                'accept': '*/*',
+                'Authorization': `Bearer ${token}`
+            },
+            body: formData
+        })
+        console.log(reponse)
+    })
 
     form.appendChild(labelTitre)
     form.appendChild(inputTitre)
@@ -305,7 +329,7 @@ function createSelect(array, name) {
     for (let i = 0; i < array.length; i++) {
         
         const option = document.createElement('option')
-        option.setAttribute('value', array[i].name)
+        option.setAttribute('value', array[i].id)
         option.innerText = array[i].name
         select.appendChild(option)
     }
@@ -317,6 +341,7 @@ function afficherImage(container, input){
 
     container.innerText = ''
     const image = document.createElement('img')
+    image.setAttribute('id', 'imgAdd')
     image.src = URL.createObjectURL(input.files[0])
     return image
 }
