@@ -1,5 +1,4 @@
-const projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
-console.log('projets :', projets);
+let projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
 
 const galleryElement = document.querySelector('.gallery')
 
@@ -270,9 +269,10 @@ function genererModaleAjout() {
             title: inputTitre.value
         }
 
-        projets.push(newProjet)
+        projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
         afficherProjets(projets, galleryElement)
         fermerModale()
+        console.log(projets)
     })
 
     form.appendChild(labelTitre)
