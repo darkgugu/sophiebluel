@@ -1,5 +1,5 @@
 const projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
-//console.log('projets :', projets);
+console.log('projets :', projets);
 
 const galleryElement = document.querySelector('.gallery')
 
@@ -127,12 +127,7 @@ modalOpen.addEventListener('click', function (event){
     modal.showModal()
 })
 
-modalClose.addEventListener('click', function (){
-
-    modal.close()
-    genererModaleGalerie()
-
-})
+modalClose.addEventListener('click', () => {fermerModale()})
 
 genererModaleGalerie()
 
@@ -204,9 +199,6 @@ function genererModaleGalerie() {
     })
 }
 
-
-
-
 function genererModaleAjout() {
 
     modaleContent.innerText = ''
@@ -271,6 +263,16 @@ function genererModaleAjout() {
             body: formData
         })
         console.log(reponse)
+
+        const newProjet = {
+            categoryId : selectCat.value,
+            imageUrl : URL.createObjectURL(inputAdd.files[0]),
+            title: inputTitre.value
+        }
+
+        projets.push(newProjet)
+        afficherProjets(projets, galleryElement)
+        fermerModale()
     })
 
     form.appendChild(labelTitre)
@@ -346,10 +348,7 @@ function afficherImage(container, input){
     return image
 }
 
-
-/* const img = document.getElementById('affImg')
-const upload = document.getElementById('test')
-upload.addEventListener('change', () => {
-    console.log('File name :', upload.files[0].name)
-    img.src = URL.createObjectURL(upload.files[0])
-}) */
+function fermerModale() {
+    modal.close()
+    genererModaleGalerie()
+}
