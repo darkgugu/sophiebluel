@@ -1,3 +1,8 @@
+import {createLabel, createInput, createSelect, afficherImage} from './tools.js'
+import { connection } from './auth.js'
+
+/*** PROJETS ***/
+
 let projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
 
 const galleryElement = document.querySelector('.gallery')
@@ -39,17 +44,19 @@ function afficherProjets(array, element) {
 
 afficherProjets(projets, galleryElement)
 
+/*** CATEGORIES ***/
 
 const categories = await fetch('http://localhost:5678/api/categories').then(categories => categories.json())
-//console.log('categories :', categories);
-
 const buttonContainer = document.querySelector('.button-container')
-
+const buttonElement  = document.querySelectorAll('.button-categories')
 const defaultButton = document.createElement('button')
+
 defaultButton.classList.add('button-categories', 'button-categories-selected')
 defaultButton.setAttribute('id', 'button0')
 defaultButton.innerText = "Tout"
 buttonContainer.appendChild(defaultButton)
+
+//Génération boutons de tri
 
 for (let i = 0; i < categories.length; i++) {
     
@@ -60,8 +67,6 @@ for (let i = 0; i < categories.length; i++) {
     button.innerText = categories[i].name
     buttonContainer.appendChild(button)
 }
-
-const buttonElement  = document.querySelectorAll('.button-categories')
 
 for (let i = 0; i < buttonElement.length; i++) {
 
@@ -81,40 +86,15 @@ for (let i = 0; i < buttonElement.length; i++) {
         else{
             catMap = projets
         }
-
-        console.log('catMap :', catMap);
         afficherProjets(catMap, galleryElement)
     })  
 }
 
-const token = document.cookie.split('; ').find((x) => x.startsWith('token='))?.split('=')[1]
+/*** INTERFACE ADMIN ***/
+const token = connection()
+console.log(token)
 
-if (document.cookie.includes('admin=true')) {
-    
-    const logout = document.getElementById('login')
-    logout.innerText = 'logout'
-    logout.setAttribute('href', '')
-    logout.addEventListener('click', function (){
-        document.cookie = "admin=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-        document.cookie = "userId=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
-        console.log('Cookies supprimés, deconnexion')
-    })
-
-    //Ajout d'une margin bottom au header
-    const header = document.querySelector('header')
-    header.classList.add('header-edition')
-
-    const notDisplayed = document.querySelectorAll('.notDisplayed')
-    for (let i = 0; i < notDisplayed.length; i++) {
-        notDisplayed[i].classList.remove('notDisplayed')
-    }
-
-    const categories = document.querySelector('.button-container')
-    categories.innerText = ''
-}
-
-// Modale
+/*** MODALE ***/
 
 const modal = document.querySelector('.modale')
 const modalOpen = document.querySelector('.modifier-link')
@@ -241,39 +221,74 @@ function genererModaleAjout() {
     const ligne = document.createElement('div')
     ligne.classList.add('modale-ligne')
     const buttonSubmit = document.createElement('button')
-    buttonSubmit.classList.add('button', 'real-button', 'modale-submit')
+    buttonSubmit.classList.add('button', 'real-button', 'modale-submit', 'grey-button')
     buttonSubmit.setAttribute('type', 'submit')
     buttonSubmit.innerText = 'Valider'
     buttonSubmit.addEventListener('click', async (event) => {
 
         event.preventDefault()
 
-        let formData = new FormData()
-        formData.append('title', inputTitre.value)
-        formData.append('category', selectCat.value)
-        formData.append('image', inputAdd.files[0])
+        if(inputTitre.value === '' || selectCat.value === '' || inputAdd.files[0] === undefined){
 
-        const reponse = await fetch('http://localhost:5678/api/works', {
-            method: 'POST',
-            headers: {
-                'accept': '*/*',
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        })
-        console.log(reponse)
+            const array = []
 
-        const newProjet = {
-            categoryId : selectCat.value,
-            imageUrl : URL.createObjectURL(inputAdd.files[0]),
-            title: inputTitre.value
+            if (inputTitre.value === '') {
+                console.log('titre')
+                array.push(inputTitre)
+            }
+            if (selectCat.value === '') {
+                console.log('catégorie')
+                array.push(selectCat)
+            }
+            if (inputAdd.files[0] === undefined) {
+                console.log('photo')
+                array.push(divAjout)
+                array.push(inputAdd)
+            }
+
+            for (let i = 0; i < array.length; i++) {
+                array[i].classList.add('wrong-connection')
+                array[i].addEventListener('input', () => {
+                    array[i].classList.remove('wrong-connection')
+                })
+            }
         }
-
-        projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
-        afficherProjets(projets, galleryElement)
-        fermerModale()
-        console.log(projets)
+        else{
+            let formData = new FormData()
+            formData.append('title', inputTitre.value)
+            formData.append('category', selectCat.value)
+            formData.append('image', inputAdd.files[0])
+    
+            const reponse = await fetch('http://localhost:5678/api/works', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
+                body: formData
+            })
+            console.log(reponse)
+    
+            projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
+            afficherProjets(projets, galleryElement)
+            fermerModale()
+            console.log(projets)        
+        }
     })
+
+    inputAdd.addEventListener('change', () => { checkForValidation() })
+    inputTitre.addEventListener('change', () => { checkForValidation() })
+    selectCat.addEventListener('change', () => { checkForValidation() })
+
+    function checkForValidation(){
+
+        if (inputAdd.files[0] !== undefined && inputTitre.value !== '' && selectCat.value !== '') {
+            console.log('OK')
+            buttonSubmit.classList.remove('grey-button')
+        }
+        else{
+            buttonSubmit.classList.add('grey-button')
+        }
+    }
 
     form.appendChild(labelTitre)
     form.appendChild(inputTitre)
@@ -291,61 +306,6 @@ function genererModaleAjout() {
     
         genererModaleGalerie()
     })
-}
-
-function createLabel(name){
-
-    const label = document.createElement('label')
-    label.innerText = name
-    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    name = name.toLowerCase()
-    label.setAttribute('for', name)
-    
-    
-    return label
-}
-
-function createInput(type, name) {
-
-    const input = document.createElement('input')
-    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    name = name.toLowerCase()
-    input.setAttribute('type', type)
-    input.setAttribute('name', name)
-    input.setAttribute('id', name)
-    return input
-}
-
-function createSelect(array, name) {
-    
-    const select = document.createElement('select')
-    name = name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-    name = name.toLowerCase()
-    select.setAttribute('name', name)
-    select.setAttribute('id', name)
-
-    const option = document.createElement('option')
-    option.setAttribute('value', '')
-    select.appendChild(option)
-
-    for (let i = 0; i < array.length; i++) {
-        
-        const option = document.createElement('option')
-        option.setAttribute('value', array[i].id)
-        option.innerText = array[i].name
-        select.appendChild(option)
-    }
-
-    return select
-}
-
-function afficherImage(container, input){
-
-    container.innerText = ''
-    const image = document.createElement('img')
-    image.setAttribute('id', 'imgAdd')
-    image.src = URL.createObjectURL(input.files[0])
-    return image
 }
 
 function fermerModale() {

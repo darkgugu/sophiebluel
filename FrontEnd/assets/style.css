@@ -199,6 +199,10 @@ li a:hover {
   cursor: pointer;
 }
 
+.grey-button {
+  background-color: #A7A7A7;
+}
+
 .form-ajout {
   width: 100%;
   margin: auto;
@@ -231,4 +235,8 @@ li a:hover {
 
 .gallery img {
   max-height: 490px;
+}
+
+.red-border {
+  border: 2px solid #cc0000;
 }

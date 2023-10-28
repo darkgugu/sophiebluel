@@ -222,6 +222,10 @@ li a{
     cursor: pointer;
 }
 
+.grey-button{
+    background-color: #A7A7A7;
+}
+
 .form-ajout{
     width: 100%;
 	margin: auto;
@@ -262,4 +266,8 @@ li a{
     img{
         max-height: 490px;
     }
+}
+
+.red-border{
+    border: 2px solid darken(red, 10);
 }
