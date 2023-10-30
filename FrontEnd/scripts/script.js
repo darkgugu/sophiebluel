@@ -1,9 +1,10 @@
 import {createLabel, createInput, createSelect, afficherImage} from './tools.js'
 import { connection } from './auth.js'
+const localhost = 'http://localhost:5678/api/'
 
 /*** PROJETS ***/
 
-let projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
+let projets = await fetch(localhost + 'works').then(projets => projets.json())
 
 const galleryElement = document.querySelector('.gallery')
 
@@ -46,7 +47,7 @@ afficherProjets(projets, galleryElement)
 
 /*** CATEGORIES ***/
 
-const categories = await fetch('http://localhost:5678/api/categories').then(categories => categories.json())
+const categories = await fetch(localhost + 'categories').then(categories => categories.json())
 const buttonContainer = document.querySelector('.button-container')
 const buttonElement  = document.querySelectorAll('.button-categories')
 const defaultButton = document.createElement('button')
@@ -259,7 +260,7 @@ function genererModaleAjout() {
             formData.append('category', selectCat.value)
             formData.append('image', inputAdd.files[0])
     
-            const reponse = await fetch('http://localhost:5678/api/works', {
+            const reponse = await fetch(localhost + 'works', {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -268,7 +269,7 @@ function genererModaleAjout() {
             })
             console.log(reponse)
     
-            projets = await fetch('http://localhost:5678/api/works').then(projets => projets.json())
+            projets = await fetch(localhost + 'works').then(projets => projets.json())
             afficherProjets(projets, galleryElement)
             fermerModale()
             console.log(projets)        
