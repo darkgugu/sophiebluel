@@ -4,9 +4,8 @@ const localhost = 'http://localhost:5678/api/'
 
 /*** PROJETS ***/
 
-let projets = await fetch(localhost + 'works').then(projets => projets.json())
-
 const galleryElement = document.querySelector('.gallery')
+let projets = await fetch(localhost + 'works').then(projets => projets.json()).catch(() => {errorGET()})
 
 function afficherProjets(array, element) {
 
@@ -312,4 +311,11 @@ function genererModaleAjout() {
 function fermerModale() {
     modal.close()
     genererModaleGalerie()
+}
+
+function errorGET(){
+    console.log('erreur')
+    const erreur = document.createElement('h3')
+    erreur.innerText = 'ERREUR SERVEUR'
+    document.getElementById('portfolio').appendChild(erreur)
 }
